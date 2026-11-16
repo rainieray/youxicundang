@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小游戏导航</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #0a0a0a;
+    --paper: #fdfdfc;
+    --gray: #8b8b8b;
+    --line: #e4e4e2;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 64px 24px;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    width: min(860px, 100%);
+    animation: fade .7s cubic-bezier(.2,.8,.3,1) both;
+  }
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- 顶部 ---------- */
+  .head {
+    padding-bottom: 28px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 36px;
+  }
+
+  .head-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    font-size: 11px;
+    letter-spacing: .34em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 22px;
+  }
+
+  .head-title {
+    font-size: clamp(2.2rem, 6vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: .14em;
+    line-height: 1.15;
+  }
+
+  .head-sub {
+    margin-top: 12px;
+    font-size: 13px;
+    letter-spacing: .1em;
+    color: var(--gray);
+  }
+
+  /* ---------- 卡片列表 ---------- */
+  .list { display: flex; flex-direction: column; }
+
+  .card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    padding: 30px 32px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    color: inherit;
+    text-decoration: none;
+    transition: background .38s cubic-bezier(.4,0,.2,1),
+                color .38s cubic-bezier(.4,0,.2,1);
+    animation: fade .7s cubic-bezier(.2,.8,.3,1) both;
+  }
+  .card + .card { margin-top: -1px; }
+
+  .card:nth-child(1) { animation-delay: .1s; }
+  .card:nth-child(2) { animation-delay: .18s; }
+  .card:nth-child(3) { animation-delay: .26s; }
+
+  .num {
+    flex: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .16em;
+    color: var(--gray);
+    transition: color .38s;
+    padding-top: 4px;
+  }
+
+  .info { flex: 1; min-width: 0; }
+
+  .name {
+    display: block;
+    font-size: 1.22rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    margin-bottom: 8px;
+  }
+
+  .desc {
+    display: block;
+    font-size: 13px;
+    letter-spacing: .08em;
+    color: var(--gray);
+    transition: color .38s;
+  }
+
+  .arrow {
+    flex: none;
+    font-size: 18px;
+    line-height: 1;
+    transition: transform .38s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* 可点击卡片：反色 */
+  a.card:hover,
+  a.card:focus-visible {
+    background: var(--ink);
+    color: var(--paper);
+    outline: none;
+  }
+  a.card:hover .num,
+  a.card:hover .desc,
+  a.card:focus-visible .num,
+  a.card:focus-visible .desc { color: rgba(255,255,255,.6); }
+
+  a.card:hover .arrow,
+  a.card:focus-visible .arrow { transform: translateX(8px); }
+
+  /* 未开放卡片 */
+  .card.is-locked {
+    border-color: var(--line);
+    color: #c4c4c2;
+    cursor: default;
+  }
+  .card.is-locked .num,
+  .card.is-locked .desc { color: #c4c4c2; }
+  .card.is-locked .arrow { opacity: .35; }
+
+  /* ---------- 页脚 ---------- */
+  .foot {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  @media (max-width: 560px) {
+    body { padding: 44px 18px; }
+    .head { padding-bottom: 22px; margin-bottom: 26px; }
+    .card { padding: 22px 20px; gap: 16px; }
+    .name { font-size: 1.06rem; }
+    .head-top { letter-spacing: .2em; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="wrap">
+
+    <header class="head">
+      <div class="head-top">
+        <span>Game Index</span>
+        <span>小游戏导航</span>
+      </div>
+      <h1 class="head-title">小游戏导航</h1>
+      <p class="head-sub">点击卡片进入 · 全部为网页互动游戏</p>
+    </header>
+
+    <nav class="list">
+
+      <a class="card" href="lianzong/index.html">
+        <span class="num">01</span>
+        <span class="info">
+          <span class="name">这档恋综不对劲</span>
+          <span class="desc">恋爱真人秀 · 多线攻略互动企划</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+
+      <div class="card is-locked">
+        <span class="num">02</span>
+        <span class="info">
+          <span class="name">敬请期待</span>
+          <span class="desc">新作品制作中</span>
+        </span>
+        <span class="arrow">→</span>
+      </div>
+
+      <div class="card is-locked">
+        <span class="num">03</span>
+        <span class="info">
+          <span class="name">敬请期待</span>
+          <span class="desc">新作品制作中</span>
+        </span>
+        <span class="arrow">→</span>
+      </div>
+
+    </nav>
+
+    <footer class="foot">
+      <span>共 1 个作品</span>
+      <span>Powered by GitHub Pages</span>
+    </footer>
+
+  </div>
+
+</body>
+</html>
