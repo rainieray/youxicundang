@@ -31,7 +31,6 @@
     overflow-x: hidden;
   }
 
-  /* 背景星光 */
   body::before {
     content: "";
     position: fixed;
@@ -62,7 +61,6 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ---------- 标题区 ---------- */
   .header { text-align: center; }
 
   .kicker {
@@ -94,7 +92,6 @@
     background: linear-gradient(90deg, transparent, var(--pink), var(--purple), transparent);
   }
 
-  /* ---------- 剧情介绍卡片 ---------- */
   .intro {
     padding: 26px 28px;
     border-radius: 20px;
@@ -130,7 +127,6 @@
     letter-spacing: .03em;
   }
 
-  /* ---------- 按钮区 ---------- */
   .menu {
     display: flex;
     flex-direction: column;
@@ -153,7 +149,6 @@
     transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
   }
 
-  /* 主按钮：开始游戏 */
   .btn-primary {
     background: linear-gradient(135deg, #ff6b9d 0%, #c56cf0 100%);
     color: #fff;
@@ -164,7 +159,6 @@
     box-shadow: 0 14px 38px rgba(255,107,157,.62);
   }
 
-  /* 次要按钮：角色介绍 / 番外 */
   .btn-ghost {
     background: rgba(255,255,255,.05);
     border: 1px solid rgba(255,255,255,.18);
@@ -180,7 +174,6 @@
 
   .btn:active { transform: translateY(0) scale(.985); }
 
-  /* 主按钮扫光 */
   .btn-primary::after {
     content: "";
     position: absolute;
@@ -192,7 +185,6 @@
   }
   .btn-primary:hover::after { left: 130%; }
 
-  /* ---------- 提示条 ---------- */
   .toast {
     position: fixed;
     left: 50%;
@@ -264,13 +256,11 @@
     btn.addEventListener('click', () => {
       const page = btn.dataset.page;
 
-      // 开始游戏：真实跳转
-      if (page === 'game.html') {
+      if (page === 'game.html' || page === 'characters.html') {
         location.href = page;
         return;
       }
 
-      // 其他页面：还没做，先提示
       showToast(`「${btn.textContent}」页面还在制作中～`);
     });
   });
