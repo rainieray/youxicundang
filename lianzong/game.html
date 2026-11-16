@@ -28,7 +28,6 @@
     gap: 18px;
   }
 
-  /* ===== 顶部状态栏 ===== */
   .hud {
     align-self: center;
     padding: 10px 26px;
@@ -37,9 +36,11 @@
     letter-spacing: .12em;
     background: rgba(255,255,255,.05);
     border: 1px solid rgba(255,255,255,.14);
+    min-width: 220px;
+    text-align: center;
   }
+  .hud span { display: inline-block; }
 
-  /* ===== 剧情 + 好感度 ===== */
   .story-box {
     flex: 1;
     display: flex;
@@ -69,7 +70,6 @@
       transparent);
   }
 
-  /* 好感度文字列表 */
   .affection {
     display: flex;
     flex-direction: column;
@@ -77,18 +77,11 @@
     font-size: .9rem;
     letter-spacing: .04em;
     color: #c9b8e0;
+    min-height: 24px;
   }
+  .aff-line b { color: #ffd93d; font-weight: 600; }
+  .aff-desc { color: #8f7fa8; }
 
-  .aff-line b {
-    color: #ffd93d;
-    font-weight: 600;
-  }
-
-  .aff-desc {
-    color: #8f7fa8;
-  }
-
-  /* ===== 选项按钮 ===== */
   .choices {
     display: flex;
     flex-direction: column;
@@ -104,6 +97,11 @@
     cursor: pointer;
     background: rgba(255,255,255,.06);
     border: 1px solid rgba(255,255,255,.18);
+    transition: transform .2s, background .2s, border-color .2s;
+  }
+  .choice-btn:hover {
+    background: rgba(255,107,157,.15);
+    border-color: rgba(255,107,157,.6);
   }
   .choice-btn.primary {
     color: #fff;
@@ -111,7 +109,6 @@
     background: linear-gradient(135deg, #ff6b9d, #c56cf0);
   }
 
-  /* ===== 底部心情进度条 ===== */
   .mood {
     display: flex;
     flex-direction: column;
@@ -128,6 +125,13 @@
     margin-bottom: 2px;
   }
 
+  #mood-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 20px;
+  }
+
   .mood-row {
     display: flex;
     align-items: center;
@@ -136,11 +140,7 @@
     letter-spacing: .06em;
   }
 
-  .mood-name {
-    flex: none;
-    width: 44px;
-    color: #c9b8e0;
-  }
+  .mood-name { flex: none; width: 44px; color: #c9b8e0; }
 
   .mood-bar {
     flex: 1;
@@ -164,7 +164,6 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* 三种心情各自配色 */
   .mood-numbness { background: linear-gradient(90deg,#6b6b8a,#8f8fb0); }
   .mood-pain     { background: linear-gradient(90deg,#8a4b6b,#c56cf0); }
   .mood-joy      { background: linear-gradient(90deg,#ff6b9d,#ffd93d); }
@@ -175,56 +174,31 @@
 <main class="game">
 
   <header class="hud">
-    第 1 天 | 星期一 | 晴
+    <span id="hud-day"></span>
+    <span id="hud-weekday"></span>
+    <span id="hud-weather"></span>
   </header>
 
   <section class="story-box">
-    <div class="story-text">
-      这里以后会显示剧情文字。
-    </div>
-
+    <div class="story-text" id="story-text"></div>
     <div class="divider"></div>
-
-    <div class="affection">
-      <div class="aff-line">林晚 好感度：<b>12</b>/100 <span class="aff-desc">（认识）</span></div>
-      <div class="aff-line">苏念 好感度：<b>15</b>/100 <span class="aff-desc">（陌生）</span></div>
-    </div>
+    <div class="affection" id="affection"></div>
   </section>
 
-  <footer class="choices">
-    <button class="choice-btn primary">选项一</button>
-    <button class="choice-btn">选项二</button>
-  </footer>
+  <footer class="choices" id="choices"></footer>
 
   <div class="mood">
     <div class="mood-title">你目前的状态是：</div>
-
-    <div class="mood-row">
-      <span class="mood-name">麻木</span>
-      <div class="mood-bar">
-        <div class="mood-fill mood-numbness" style="width:40%;"></div>
-      </div>
-      <span class="mood-num">40</span>
-    </div>
-
-    <div class="mood-row">
-      <span class="mood-name">痛苦</span>
-      <div class="mood-bar">
-        <div class="mood-fill mood-pain" style="width:20%;"></div>
-      </div>
-      <span class="mood-num">20</span>
-    </div>
-
-    <div class="mood-row">
-      <span class="mood-name">快乐</span>
-      <div class="mood-bar">
-        <div class="mood-fill mood-joy" style="width:60%;"></div>
-      </div>
-      <span class="mood-num">60</span>
-    </div>
+    <div id="mood-rows"></div>
   </div>
 
 </main>
 
+<script src="js/config.js"></script>
+<script src="js/story.js"></script>
+<script src="js/routes.js"></script>
+<script src="js/events.js"></script>
+<script src="js/endings.js"></script>
+<script src="js/engine.js"></script>
 </body>
 </html>
